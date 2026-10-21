@@ -4,6 +4,12 @@
 
 所有机构、人物、产品、价格及场景均为本 Demo 新编的虚构资料。公开工程没有复制历史项目的原始业务库、合同、录音、商业政策、凭证或编译模块。
 
+## 在线体验
+
+**[打开公开演示网站](https://lazydell-sales-roleplay.bravedaisy258.chatgpt.site)** — 无需登录、安装或模型密钥。
+
+在线版在浏览器内运行规则模拟，支持 TOB/TOC、角色互换、证据复盘和导出。对话不发送到应用服务器，刷新后清空。真实模型功能需下载下方 Python 本地版配置使用。在线版与本地版采用不同的种子洗牌实现，不保证两者追问顺序一致。
+
 ## 项目亮点
 
 | 设计问题 | 实现方式 |
@@ -70,6 +76,7 @@ python3 start.py
 ```sh
 python3 -m unittest discover -s tests -v
 python3 tools/check_public.py
+node --test tests/test_static.js
 python3 tools/package_public.py ../sales-roleplay-demo-public.zip
 ```
 
@@ -89,6 +96,15 @@ tests/          角色、产品、失败路径与 HTTP 边界测试
 tools/          公开文件扫描及打包工具
 docs/           设计说明、演示脚本与验收记录
 ```
+
+## 构建静态在线版
+
+```sh
+python3 tools/build_static.py ../sales-roleplay-web
+python3 -m http.server 8770 --directory ../sales-roleplay-web
+```
+
+在线版构建仅需 Python；测试浏览器规则引擎需要 Node.js 22+。构建产物为五个静态文件，可以托管到支持 HTTPS 的静态站点平台。当前正式网站托管在 Sites；GitHub 更新不会自动触发 Sites 发布，需要重新构建并发布。
 
 ## 已知边界
 

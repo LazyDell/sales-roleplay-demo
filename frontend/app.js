@@ -3,6 +3,7 @@ const $ = id => document.getElementById(id);
 let catalog, mode='tob', session=null, review=null, busy=false;
 function error(message){$('error').textContent=message;$('error').hidden=false;}
 async function api(path,body){
+ if(window.RoleplayStatic)return window.RoleplayStatic.request(path,body);
  const response=await fetch(path,body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{});
  const data=await response.json(); if(!response.ok)throw new Error(data.error||'请求失败，请重试。');return data;
 }
@@ -11,7 +12,7 @@ function option(select,value,text){const el=document.createElement('option');el.
 function setMode(next){mode=next;for(const m of ['tob','toc']){$(m).classList.toggle('active',m===mode);$(m).setAttribute('aria-pressed',String(m===mode));} $('modeHint').textContent=mode==='tob'?'与门店关键人沟通，推进合作试点。':'与车主沟通需求，帮助客户自主选择。';$('scenario').replaceChildren();catalog.scenarios.filter(s=>s.mode===mode).forEach(s=>option($('scenario'),s.id,s.subtitle));preview();}
 function list(id,items){$(id).replaceChildren();for(const text of items){const li=document.createElement('li');li.textContent=text;$(id).append(li);}}
 function context(s,p){$('contextText').textContent=s.context;$('goalText').textContent=s.goal;$('productName').textContent=p.name;$('price').textContent=p.price;list('facts',p.facts);list('exclusions',p.exclusions);}
-function preview(){if(session)return;const s=catalog.scenarios.find(s=>s.id===$('scenario').value),p=catalog.products.find(p=>p.id===$('product').value);if(s&&p)context(s,p);}
+function preview(){if(session&&!session.finished)return;const s=catalog.scenarios.find(s=>s.id===$('scenario').value),p=catalog.products.find(p=>p.id===$('product').value);if(s&&p)context(s,p);}
 function render(){
  $('chatTitle').textContent=session.scenario.title;$('engineBadge').textContent=session.engine==='mock'?'模拟模式':'真实模型';$('rolebar').textContent=`你：${session.user_role}　/　对方：${session.ai_role}`;
  $('sessionStatus').textContent=session.engine==='mock'?'模拟回复由规则生成':'回复来自配置的模型，请核对产品事实';
