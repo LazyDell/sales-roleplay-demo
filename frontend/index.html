@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>销售对练实验室 · Sales Practice Lab</title><link rel="stylesheet" href="/style.css"><script defer src="/app.js"></script></head>
+<body>
+<header><a class="brand" href="/" aria-label="销售对练实验室首页"><span class="brand-icon">↗</span><span>销售对练实验室<small>SALES PRACTICE LAB</small></span></a><nav><span class="status-dot"></span> 求职作品 · 交互演示 <span class="version">v0.1</span></nav></header>
+<main>
+<section class="intro"><div><p class="eyebrow">PRACTICE WITH PURPOSE</p><h1>把每一次沟通，<br>变成下一次的进步。</h1><p class="lead">从门店合作到车主咨询，在安全的模拟场景里练习提问、回应和推进。</p></div><div class="intro-note"><span class="note-number">01 — 03</span><p>选一个场景<br>展开一段对话<br>带走一个改进点</p><span class="small">全部产品、人物与机构均为虚构</span></div></section>
+<section class="workspace">
+<aside class="setup panel"><div class="section-label">01 / 设置训练</div><h2>今天练习什么？</h2><div class="mode-tabs" role="group" aria-label="训练类型"><button id="tob" class="active" type="button" aria-pressed="true">TOB · 合作开拓</button><button id="toc" type="button" aria-pressed="false">TOC · 客户销售</button></div><p id="modeHint" class="muted">与门店关键人沟通，推进合作试点。</p>
+<label for="scenario">训练场景</label><select id="scenario"></select>
+<label for="product">虚构产品</label><select id="product"></select>
+<div class="form-row"><div><label for="difficulty">对话难度</label><select id="difficulty"><option value="normal">常规沟通</option><option value="challenge">深入追问</option></select></div><div><label for="seed">场景种子</label><input id="seed" value="practice-01" maxlength="64"></div></div>
+<label for="engine">对话引擎</label><select id="engine"><option value="mock">模拟模式 · 无需密钥</option><option value="live" disabled>真实模型 · 服务端未配置</option></select>
+<label class="checkbox"><input type="checkbox" id="reverse">角色互换：由我扮演客户</label>
+<button id="start" class="primary" disabled>开始一轮演练 <span>↗</span></button><p class="small muted">设置在下一轮生效。重新开始会清空当前对话。场景种子只固定模拟追问顺序。</p>
+<details><summary>关于这个作品</summary><p>统一 TOB / TOC 角色演练，提供产品事实卡、会话隔离与证据复盘。默认回复由规则生成，非真实 AI 推理。真实模型需在服务端配置。</p></details>
+</aside>
+<section class="conversation panel"><div class="conversation-top"><div><div class="section-label">02 / 沟通练习</div><h2 id="chatTitle">给好问题，留一点空间。</h2></div><span id="engineBadge" class="badge">模拟模式</span></div><div id="rolebar" class="rolebar">你是顾问 · 对方是模拟客户</div><div id="messages" class="messages" role="log" aria-live="polite"><div class="empty"><div class="empty-icon">“</div><h3>一场好沟通，从理解开始。</h3><p>在左侧选择场景，开启你的第一轮演练。<br>先问一个问题，再给一个建议。</p><div class="sample-tags"><span>识别需求</span><span>解释边界</span><span>约定下一步</span></div></div></div><form id="chatForm"><label class="sr-only" for="message">你的回复</label><textarea id="message" placeholder="试着先问：您目前最担心的是哪一方面？" maxlength="2000" rows="3" disabled></textarea><div class="composer-bottom"><span id="turns" class="small muted">0 轮对话 / 最多 20 轮</span><button id="send" class="send" disabled>发送 ↗</button></div></form><div class="chat-actions"><span id="sessionStatus" class="small muted">模拟回复由规则生成</span><button id="finish" class="text-button" disabled>结束并复盘 →</button></div></section>
+<aside class="context panel"><div class="section-label">训练参考</div><h2>聚焦这一次对话</h2><p id="contextText" class="context-text"></p><div class="goal"><span class="small">本轮目标</span><p id="goalText"></p></div><div class="divider"></div><div class="section-label">产品事实卡 · 虚构</div><h3 id="productName"></h3><p id="price" class="price"></p><ul id="facts"></ul><div class="boundary"><strong>需要讲清的边界</strong><ul id="exclusions"></ul></div><p class="small muted">仅用于沟通练习，不代表真实产品、合同或商业承诺。</p></aside>
+</section>
+<section id="review" class="review panel" hidden><div class="review-heading"><div><div class="section-label">03 / 证据复盘</div><h2>看见表达，也看见下一步。</h2></div><button id="export" class="secondary">导出本轮记录 ↓</button></div><p id="reviewMethod" class="muted"></p><div id="dimensions" class="dimensions"></div><p id="nextStep" class="next-step"></p></section>
+<div id="error" class="error" role="alert" hidden></div>
+<footer><span>SALES PRACTICE LAB</span><span>练习真实的沟通能力 · 使用完全虚构的业务资料</span></footer>
+</main></body></html>

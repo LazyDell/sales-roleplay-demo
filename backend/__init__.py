@@ -1,0 +1,1 @@
+"""Local roleplay application."""
